@@ -1,33 +1,34 @@
 #include "main.h"
 /**
- * _printf - receives the main string and all needed parameters to
- * a formated string
+ * _printf - produces output according to a format
  * @format: a string containing all the needed characters
- * Return: total count of the characters printed
+ * Return: number of characters printed(excluding the null terminator)
  */
 int _printf(const char *format, ...)
 {
-	int printed_chars;
-
-	conver_t f_list[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent},
-		{"d", print_integer},
-		{"i", print_integer},
-		{"b", print_binary},
-		{"r", print_reversed},
-		{"R", rot13},
-		{"u", unsigned_integer},
-		{"o", print_octal},
-		{"x", print_hex},
-		{"X", print_heX},
-		{NULL, NULL}
-	};
-	va_list arg_list;
-
+	int count;
+	int total = 0;
+	va_list args;
+	int flag = 0;
+	
 	if (format == NULL)
-		return (-1);
+		return (0);
+
+	va_start(args, format);
+
+	for (count = 0; *(format + count) != '\0'; count++)
+	{
+		if (format[count] == '%')
+			flag = 1;
+		else if (flag == 1)
+		{
+			flag = 0;
+			switch (format[count])
+			{
+				case 'c':
+			}
+		}
+	}
 
 	va_start(arg_list, format);
 	/*calling parser function*/
