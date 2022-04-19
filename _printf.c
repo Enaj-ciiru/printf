@@ -2,73 +2,34 @@
 /**
  * _printf - produces output according to a format
  * @format: a string containing all the needed characters
- * Return: number of characters printed(excluding the null terminator)
+ * Return: total count of the characters printed
  */
 int _printf(const char *format, ...)
 {
-	int count;
-	int total = 0;
-	va_list args;
-	int flag = 0;
+	int printed_chars;
+	conver_t f_list[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"%", print_percent},
+		{"d", print_integer},
+		{"i", print_integer},
+		{"b", print_binary},
+		{"r", print_reversed},
+		{"R", rot13},
+		{"u", unsigned_integer},
+		{"o", print_octal},
+		{"x", print_hex},
+		{"X", print_heX},
+		{NULL, NULL}
+	};
+	va_list arg_list;
 
 	if (format == NULL)
-		return (0);
+		return (-1);
 
-	va_start(args, format);
-
-	for (count = 0; *(format + count) != '\0'; count++)
-	{
-		if (format[count] == '%')
-			flag = 1;
-		else if (flag == 1)
-		{
-			flag = 0;
-			switch (format[count])
-			{
-				case 'c':
-					_putchar(va_arg(args, int));
-					total += 1;
-					break;
-				case 's':
-					total += _print_str(va_arg(args, char *));
-					break;
-				case '%':
-					_putchar('%');
-					total += 1;
-					break;
-				case 'd':
-					total += _print_int((long)(va_arg(args, int)));
-					break;
-				case 'i':
-					total += _print_int((long)(va_arg(args, int)));
-					break;
-				case 'b':
-					total += to_Binary(va_arg(args, int));
-					break;
-				case 'u':
-					total += _print_int(va_arg(args, unsigned int));
-					break;
-				case 'o':
-					total += to_Octal(va_arg(args, int));
-					break;
-				case 'x':
-					total += to_Hexa(va_arg(args, int));
-					break;
-				case 'X':
-					total += to_Hexa(va_arg(args, int));
-					break;
-				default:
-					_putchar('%');
-					_putchar(format[count]);
-					total += 2;
-			}
-		}
-		else
-		{
-			_putchar(format[count]);
-			total += 1;
-		}
-	}
-	va_end(args);
-	return (total);
+	va_start(arg_list, format);
+	/*Calling parser function*/
+	printed_chars = parser(format, f_list, arg_list);
+	va_end(arg_list);
+	return (printed_chars);
 }
