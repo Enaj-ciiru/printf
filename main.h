@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef PRINT_F
+#define PRINT_F
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -35,7 +35,5 @@ int print_d(va_list list);
 int print_i(va_list list);
 unsigned long expo(unsigned int base, unsigned int xponent);
 int print_p(va_list list);
-int print_o(va_list list);
-int print_u(va_list list);
 
 #endif

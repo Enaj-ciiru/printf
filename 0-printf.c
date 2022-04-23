@@ -63,10 +63,7 @@ int _printf(const char *format, ...)
 		{"%", print_pcnt},
 		{"d", print_d},
 		{"i", print_i},
-		{"b", print_to_bin},
 		{"p", print_p},
-		{"o", print_o},
-		{"u", print_u},
 		{NULL, NULL}
 	};
 
