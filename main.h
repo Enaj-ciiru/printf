@@ -1,41 +1,41 @@
-#ifndef PRINT_F
-#define PRINT_F
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdarg.h>
+#include <stddef.h>
 /**
- * struct convert - defines a structure for symbols and functions
- * @sym: the operator
- * @f: the function associated
+ * struct fmtspec - defines a structure for symbols and functions
+ * @flag: c, s, f, d ...
+ * @fptr: the function associated
  */
-struct convert
+struct fmtspec
 {
-	char *sym;
-	int (*f)(va_list);
+	char *flag;
+	int (*fptr)(va_list);
 };
-typedef struct convert conver_t;
+typedef struct fmtspec fts;
 
-int parser(const char *format, conver_t f_list[], va_list arg_list);
 int _printf(const char *format, ...);
-int _write_char(char);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int print_integer(va_list);
-int print_number(va_list);
-int print_binary(va_list);
-int print_reversed(va_list arg);
-int rot13(va_list);
-int unsigned_integer(va_list);
-int print_octal(va_list list);
-int print_hex(va_list list);
-int print_heX(va_list list);
+int _write_ch(char);
+int print_fmtd(const char *format, fts list[], va_list ap);
+int print_ch(va_list);
+int print_str(va_list);
+int print_pcnt(va_list);
+void _write_str(char *str);
+unsigned int to_base_len(unsigned int n, int base);
+char *reverse(char *s);
+char *_cpy(char *dest, char *src, unsigned int n);
 
-unsigned int base_len(unsigned int, int);
-char *rev_string(char *);
-void write_base(char *str);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int print_unsgined_number(unsigned int);
+int print_to_bin(va_list list);
+
+int print_d(va_list list);
+int print_i(va_list list);
+unsigned long expo(unsigned int base, unsigned int xponent);
+int print_p(va_list list);
+int print_o(va_list list);
+int print_u(va_list list);
 
 #endif
